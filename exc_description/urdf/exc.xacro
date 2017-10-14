@@ -5,6 +5,51 @@
   <xacro:property name="base_width" value="${29*itom}"/>
   <xacro:property name="base_length" value="${58*itom}"/> <!-- Max val: 50" bare minimum -->
   <xacro:property name="base_height" value="${2*itom}"/> <!-- BS'd this number, total random guess -->
+  <xacro:property name="wheel_radius" value="${16*itom}"/>
+  <xacro:property name="wheel_width" value="${6*itom}"/>
+
+  <xacro:include filename="$(find exc_description)/urdf/exc.gazebo" />
+
+  <!-- A macro for creating a wheel with a link, joint, and transmission -->
+  <xacro:macro name="wheel" params="name fb lr">
+    <link name="${name}">
+      <visual>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}" />
+        </geometry>
+        <origin rpy="${pi/2} 0 0" />
+      </visual>
+      <collision>
+        <geometry>
+          <cylinder radius="${wheel_radius}" length="${wheel_width}" />
+        </geometry>
+        <origin rpy="${pi/2} 0 0" />
+      </collision>
+      <inertial>
+        <origin xyz="0 ${wheel_width/2} 0" rpy="0 0 0"/>
+        <mass value="500"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
+        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
+      </inertial>
+    </link>
+    <joint name="${name}_joint" type="continuous">
+      <parent link="base_link"/>
+      <child link="${name}"/><!--rpy="0 0 ${pi/2}"-->
+      <origin xyz="${fb*base_length/2 - 8*fb*itom} ${lr*base_width/2 + lr*wheel_width} ${-base_height/2}"/>
+      <axis xyz="0 1 0"/>
+      <limit effort="10000000.0"  velocity="10000"/>
+      <dynamics damping="0.7"/>
+    </joint>
+    <transmission name="${name}_tran">
+      <type>transmission_interface/SimpleTransmission</type>
+      <joint name="${name}_joint">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      </joint>
+      <actuator name="${name}_motor">
+        <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+        <mechanicalReduction>1</mechanicalReduction>
+      </actuator>
+    </transmission>
+  </xacro:macro>
 
   <link name="god" /> <!-- This is necessary because Gazebo complains about the base link having inertia, for some reason -->
   <link name="base_link" >
@@ -19,10 +64,15 @@
       </geometry>
     </collision>
     <inertial>
-      <mass value="250"/>
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+      <mass value="250"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
     </inertial>
   </link>
+
+  <xacro:wheel name="wheel_fr" fb="1" lr="-1" />
+  <xacro:wheel name="wheel_fl" fb="1" lr="1" />
+  <xacro:wheel name="wheel_rr" fb="-1" lr="-1" />
+  <xacro:wheel name="wheel_rl" fb="-1" lr="1" />
 
   <joint name="god_to_base" type="fixed">
     <parent link="god" />
