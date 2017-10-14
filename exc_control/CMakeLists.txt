@@ -14,7 +14,7 @@ install(DIRECTORY config
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-include_directories(include ${catkin_INCLUDE_DIRS} /usr/include /usr/include/SFML)
+include_directories(include ${catkin_INCLUDE_DIRS} /usr/include  /usr/include/ /usr/include/SFML /usr/include/SFML/)
 link_directories(/usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu)
 
 add_executable(driver_station src/DriverStation.cpp)
