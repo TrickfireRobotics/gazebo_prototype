@@ -14,7 +14,7 @@ env:
 install:
   - sudo apt-get -qq update
   - sudo apt-get install -y libsfml-dev
-  - ls /usr/lib/x86_64-linux-gnu | grep sfml
+  - ls /usr/include/SFML
   - git clone https://github.com/ros-industrial/industrial_ci.git .ci_config
 script:
   - source .ci_config/travis.sh
