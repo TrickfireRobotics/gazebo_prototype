@@ -16,3 +16,7 @@ install:
 script:
   - source .ci_config/travis.sh
 #  - source ./travis.sh  # Enable this when you have a package-local script
+addons:
+  apt:
+    packages:
+    - libsfml-dev
