@@ -1,4 +1,5 @@
 <launch>
+  <rosparam file="$(find exc_control)/config/exc_control.yaml" command="load"/>
 
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>

@@ -34,7 +34,7 @@
       <wheelSeparation>1.0668</wheelSeparation>
       <wheelDiameter>0.3048</wheelDiameter>
       <robotBaseFrame>god</robotBaseFrame>
-      <torque>2000</torque>
+      <torque>20000</torque>
       <topicName>cmd_vel</topicName>
       <commandTopic>cmd_vel</commandTopic>
       <odometryTopic>odom</odometryTopic>
