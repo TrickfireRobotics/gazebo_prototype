@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+<robot name="excavator" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:property name="itom" value="0.0254" /> <!-- Inches to meters conversion -->
+
+  <xacro:property name="base_width" value="${29*itom}"/>
+  <xacro:property name="base_length" value="${58*itom}"/> <!-- Max val: 50" bare minimum -->
+  <xacro:property name="base_height" value="${2*itom}"/> <!-- BS'd this number, total random guess -->
+
+  <link name="god" /> <!-- This is necessary because Gazebo complains about the base link having inertia, for some reason -->
+  <link name="base_link" >
+    <visual>
+      <geometry>
+        <box size="${base_length} ${base_width} ${base_height}" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${base_length} ${base_width} ${base_height}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="250"/>
+      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/>
+    </inertial>
+  </link>
+
+  <joint name="god_to_base" type="fixed">
+    <parent link="god" />
+    <child link="base_link" />
+  </joint>
+</robot>
