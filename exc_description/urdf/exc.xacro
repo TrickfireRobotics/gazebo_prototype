@@ -5,7 +5,7 @@
   <xacro:property name="base_width" value="${29*itom}"/>
   <xacro:property name="base_length" value="${58*itom}"/> <!-- Max val: 50" bare minimum -->
   <xacro:property name="base_height" value="${2*itom}"/> <!-- BS'd this number, total random guess -->
-  <xacro:property name="wheel_radius" value="${16*itom}"/>
+  <xacro:property name="wheel_radius" value="${6*itom}"/>
   <xacro:property name="wheel_width" value="${6*itom}"/>
 
   <xacro:include filename="$(find exc_description)/urdf/exc.gazebo" />
@@ -28,15 +28,16 @@
       <inertial>
         <origin xyz="0 ${wheel_width/2} 0" rpy="0 0 0"/>
         <mass value="500"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
-        <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
+        <inertia ixx="1000.0" ixy="0.0" ixz="0.0" iyy="1000.0" iyz="0.0" izz="1000.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
       </inertial>
     </link>
     <joint name="${name}_joint" type="continuous">
       <parent link="base_link"/>
       <child link="${name}"/><!--rpy="0 0 ${pi/2}"-->
-      <origin xyz="${fb*base_length/2 - 8*fb*itom} ${lr*base_width/2 + lr*wheel_width} ${-base_height/2}"/>
+      <!-- TODO: Settle to more reasonable numbers -->
+      <origin xyz="${fb*base_length/2 - 16*fb*itom} ${lr*base_width/2 + lr*wheel_width} ${-base_height/2}"/>
       <axis xyz="0 1 0"/>
-      <limit effort="10000000.0"  velocity="10000"/>
+      <limit effort="100.0"  velocity="100.0"/>
       <dynamics damping="0.7"/>
     </joint>
     <transmission name="${name}_tran">
@@ -47,6 +48,7 @@
       <actuator name="${name}_motor">
         <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
         <mechanicalReduction>1</mechanicalReduction>
+        <motorTorqueConstant>1</motorTorqueConstant>
       </actuator>
     </transmission>
   </xacro:macro>
@@ -65,7 +67,7 @@
     </collision>
     <inertial>
       <mass value="250"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
-      <inertia ixx="1.0" ixy="0.0" ixz="0.0" iyy="1.0" iyz="0.0" izz="1.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
+      <inertia ixx="1000.0" ixy="0.0" ixz="0.0" iyy="1000.0" iyz="0.0" izz="1000.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
     </inertial>
   </link>
 
@@ -77,5 +79,6 @@
   <joint name="god_to_base" type="fixed">
     <parent link="god" />
     <child link="base_link" />
+    <origin xyz="0 0 0" />
   </joint>
 </robot>
