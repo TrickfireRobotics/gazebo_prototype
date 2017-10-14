@@ -4,7 +4,8 @@ set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH}
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs ${SFML_LIBRARIES})
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+find_package(SFML 2 REQUIRED system window graphics)
 
 catkin_package()
 
@@ -14,8 +15,7 @@ install(DIRECTORY config
 install(DIRECTORY launch
   DESTINATION ${CATKIN_PACKAGE_SHARE_DESTINATION})
 
-include_directories(include ${catkin_INCLUDE_DIRS})
-include_directories(${SFML_INCLUDE_DIR})
+include_directories(include ${catkin_INCLUDE_DIRS} /usr/include /usr/include/ /usr/include/SFML /usr/include/SFML/)
 link_directories(${SFML_LIBRARIES})
 
 add_executable(driver_station src/DriverStation.cpp)
