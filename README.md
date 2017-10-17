@@ -2,6 +2,12 @@
 ## Gazebo Simulation Prototype
 A robot simulation in Gazebo for use in prototyping various concepts. This takes the core of a simple skid-steer robot (designed to simulate tank treads as treads aren't supported in Gazebo) and then allows all of our team members to add on to the chassis with their own prototype additions such as Kinects, IMUs, lidars, or anything else we feel needs to be tested.
 
+### Required libraries
+ * Core ROS libraries
+ * ROS Gazebo libraries + Gazebo itself (see tutorials linked below which cover this)
+ * SFML (installing from source seems to work better, but I've also gotten just `sudo apt-get install libsfml-dev` to work)
+If you have any build issues please by all means mention them to Adam (me), I'll do my best to address them.
+
 ## Branching Policy
 No commits will be made to `master` except for changes that change the base robot that would be useful for all prototypes. For any feature you prototype (the digging arm, a Lidar, a Kinect, etc.) create a branch for it with a sensible, self-explanatory name. All prototypes will remain separate from each other and from `master` unless two prototypes feel it would be useful to merge together. Feel free to clone other prototype's branches to test them out, but do not modify them without permission from the prototype maintainer. If you're just messing around for fun keep it to your local machine, but if you think the changes constitute a notable feature/prototype development, go ahead and make a separate (also sensibly named) branch for it or let the prototyper know to implement it.
 
