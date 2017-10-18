@@ -26,7 +26,8 @@
     <remap from="/joint_states" to="/exc/joint_states" />
   </node>
 
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" ns="/exc" args="joint_state_controller
-    turntable_position_controller"/>
-  </launch>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/exc" args="joint_state_controller turntable_position_controller lower_arm_position_controller upper_arm_position_controller"/>
+
+  <!-- Adds an extra transform for the end of the arm -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="upper_arm_end" args="0 0 0.9144 0 0 0 /arm_upper /arm_upper_end"/>
+</launch>

@@ -139,6 +139,7 @@
 
   <!-- /fold -->
 
+  <!-- fold Turntable -->
   <link name="turntable">
     <visual>
       <geometry>
@@ -148,7 +149,7 @@
     </visual>
     <collision>
       <geometry>
-        <cylinder radius="${base_width/3}" length="${12*itom}" />
+        <cylinder radius="${base_width/3}" length="${6*itom}" />
         <origin xyz="0 0 ${3*itom}" />
       </geometry>
     </collision>
@@ -163,7 +164,7 @@
     <child link="turntable" />
     <origin xyz="${base_length/2-base_width/3-3*itom} 0 ${base_height/2}" />
     <axis xyz="0 0 1" />
-    <limit effort="100.0"  velocity="0.25"/>
+    <limit effort="1000.0"  velocity="0.25"/>
     <dynamics damping="0.7"/>
   </joint>
   <transmission name="turntable_tran">
@@ -172,6 +173,84 @@
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
     </joint>
     <actuator name="turntable_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+      <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
+  <!-- /fold -->
+
+  <link name="arm_lower">
+    <visual>
+      <geometry>
+        <box size="${4*itom} ${4*itom} ${36*itom}" />
+      </geometry>
+      <origin xyz="0 0 ${18*itom}" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${4*itom} ${4*itom} ${36*itom}" />
+      </geometry>
+      <origin xyz="0 0 ${18*itom}" />
+    </collision>
+    <inertial>
+      <mass value="50"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
+      <inertia ixx="100.0" ixy="0.0" ixz="0.0" iyy="100.0" iyz="0.0" izz="100.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
+    </inertial>
+  </link>
+  <joint name="lower_to_turn" type="revolute">
+    <parent link="turntable" />
+    <child link="arm_lower" />
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 ${6*itom}" />
+    <limit effort="500.0"  velocity="0.25" lower="${-pi/6}" upper="${3*pi/8}"/>
+    <dynamics damping="5.0"/>
+  </joint>
+  <transmission name="lower_arm_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="lower_to_turn">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="lower_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+      <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
+
+
+  <link name="arm_upper">
+    <visual>
+      <geometry>
+        <box size="${4*itom} ${4*itom} ${36*itom}" />
+      </geometry>
+      <origin xyz="0 0 ${18*itom}" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${4*itom} ${4*itom} ${36*itom}" />
+      </geometry>
+      <origin xyz="0 0 ${18*itom}" />
+    </collision>
+    <inertial>
+      <mass value="50"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
+      <inertia ixx="100.0" ixy="0.0" ixz="0.0" iyy="100.0" iyz="0.0" izz="100.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
+    </inertial>
+  </link>
+  <joint name="upper_to_lower" type="revolute">
+    <parent link="arm_lower" />
+    <child link="arm_upper" />
+    <axis xyz="0 1 0" />
+    <origin xyz="0 0 ${36*itom}" />
+    <limit effort="500.0"  velocity="0.25" lower="0.0" upper="${3*pi/8}"/>
+    <dynamics damping="5.0"/>
+  </joint>
+  <transmission name="upper_arm_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="upper_to_lower">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="upper_motor">
       <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
       <mechanicalReduction>1</mechanicalReduction>
       <motorTorqueConstant>1</motorTorqueConstant>
