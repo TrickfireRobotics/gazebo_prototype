@@ -35,7 +35,7 @@
       <parent link="base_link"/>
       <child link="${name}"/><!--rpy="0 0 ${pi/2}"-->
       <!-- TODO: Settle to more reasonable numbers -->
-      <origin xyz="${fb*base_length/2 - 16*fb*itom} ${lr*base_width/2 + lr*wheel_width} ${-base_height/2}"/>
+      <origin xyz="${fb*base_length/2 - 16*fb*itom} ${lr*base_width/2 + lr*wheel_width/2} ${-base_height/2}"/>
       <axis xyz="0 1 0"/>
       <limit effort="100.0"  velocity="100.0"/>
       <dynamics damping="0.7"/>
@@ -52,6 +52,59 @@
       </actuator>
     </transmission>
   </xacro:macro>
+
+  <link name="tread_left" >
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <origin xyz="${base_length/2-wheel_radius} 0 ${-wheel_width/2}" />
+    </visual>
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <origin xyz="${-base_length/2+wheel_radius} 0 ${-wheel_width/2}" />
+    </visual>
+    <visual>
+      <geometry>
+        <box size="${base_length-2*wheel_radius} ${2*wheel_radius} ${wheel_width}" />
+      </geometry>
+      <origin xyz="0 0 ${-wheel_width/2}" />
+    </visual>
+  </link>
+
+  <link name="tread_right" >
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <origin xyz="${base_length/2-wheel_radius} 0 ${wheel_width/2}" />
+    </visual>
+    <visual>
+      <geometry>
+        <cylinder radius="${wheel_radius}" length="${wheel_width}"/>
+      </geometry>
+      <origin xyz="${-base_length/2+wheel_radius} 0 ${wheel_width/2}" />
+    </visual>
+    <visual>
+      <geometry>
+        <box size="${base_length-2*wheel_radius} ${2*wheel_radius} ${wheel_width}" />
+      </geometry>
+      <origin xyz="0 0 ${wheel_width/2}" />
+    </visual>
+  </link>
+
+  <joint name="left_tread_to_base" type="fixed">
+    <parent link="base_link" />
+    <child link="tread_left" />
+    <origin xyz="0 ${base_width/2} ${-base_height/2}" rpy="${pi/2} 0 0" />
+  </joint>
+    <joint name="right_tread_to_base" type="fixed">
+      <parent link="base_link" />
+      <child link="tread_right" />
+      <origin xyz="0 ${-base_width/2} ${-base_height/2}" rpy="${pi/2} 0 0" />
+    </joint>
 
   <link name="god" /> <!-- This is necessary because Gazebo complains about the base link having inertia, for some reason -->
   <link name="base_link" >
