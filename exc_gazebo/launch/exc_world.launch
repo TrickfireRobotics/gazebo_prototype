@@ -33,7 +33,8 @@
   <!-- Publishes the state of the robot to TF for Rviz or other usages -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
 
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
-    output="screen" args="joint_state_controller
-    turntable_position_controller"/>
-  </launch>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" args="joint_state_controller turntable_position_controller lower_arm_position_controller upper_arm_position_controller"/>
+
+  <!-- Adds an extra transform for the end of the arm -->
+  <node pkg="tf2_ros" type="static_transform_publisher" name="upper_arm_end" args="0 0 0.9144 0 0 0 /arm_upper /arm_upper_end"/>
+</launch>
