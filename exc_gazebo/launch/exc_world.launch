@@ -32,4 +32,8 @@
 
   <!-- Publishes the state of the robot to TF for Rviz or other usages -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
-</launch>
+
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false"
+    output="screen" args="joint_state_controller
+    turntable_position_controller"/>
+  </launch>
