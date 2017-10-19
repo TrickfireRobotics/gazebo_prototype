@@ -170,7 +170,7 @@
           <topicName>imu</topicName>
           <serviceName>imu_service</serviceName>
           <frameName>imu_link</frameName>
-          <gaussianNoise>0.05</gaussianNoise>
+          <gaussianNoise>0.00</gaussianNoise>
           <updateRate>20.0</updateRate>
       </plugin>
 </gazebo>
