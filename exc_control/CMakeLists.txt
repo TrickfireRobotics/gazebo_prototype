@@ -4,7 +4,7 @@ project(exc_control)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf2_ros)
 
 catkin_package()
 
@@ -20,3 +20,6 @@ link_directories(/usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu)
 add_executable(driver_station src/DriverStation.cpp)
 target_link_libraries(driver_station ${catkin_LIBRARIES} sfml-system sfml-window sfml-graphics)
 #add_dependencies(driver_station exc_control_generate_messages_cpp)
+
+add_executable(point_targeter src/PointTargeter.cpp)
+target_link_libraries(point_targeter ${catkin_LIBRARIES})

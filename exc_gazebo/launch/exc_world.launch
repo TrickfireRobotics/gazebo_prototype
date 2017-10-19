@@ -37,4 +37,5 @@
 
   <!-- Adds an extra transform for the end of the arm -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="upper_arm_end" args="0 0 0.9144 0 0 0 /arm_upper /arm_upper_end"/>
+  <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_turn_static" args="0.414866 0 0 0 0 0 /base_link /turntable_static"/>
 </launch>
