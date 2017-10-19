@@ -1,0 +1,6 @@
+<launch>
+    <!--launch the simulator-->
+    <include file="$(find exc_gazebo)/launch/exc_world.launch"/>
+    <!--launch the controller-->
+    <node name="controller" pkg="exc_control" type="driver_station"/>
+</launch>
