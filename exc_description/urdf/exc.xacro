@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <robot name="excavator" xmlns:xacro="http://www.ros.org/wiki/xacro">
   <xacro:property name="itom" value="0.0254" /> <!-- Inches to meters conversion -->
-
   <xacro:property name="base_width" value="${29*itom}"/>
   <xacro:property name="base_length" value="${58*itom}"/> <!-- Max val: 50" bare minimum -->
   <xacro:property name="base_height" value="${2*itom}"/> <!-- BS'd this number, total random guess -->
@@ -134,4 +133,67 @@
     <child link="base_link" />
     <origin xyz="0 0 0" />
   </joint>
+
+
+ <joint name="imu_joint" type="fixed">
+      <axis xyz="0 0 0"/>
+      <origin xyz="0 0 0.0512"/>
+      <parent link="base_link"/>
+      <child link="imu_link"/>
+  </joint>
+  <link name="imu_link">
+      <inertial>
+          <mass value="0.05"/>
+          <origin rpy="0 0 0" xyz="0 0 .05"/>
+          <inertia ixx="0.05" ixy="0" ixz="0" iyy="0.05" iyz="0" izz="0.05"/>
+      </inertial>
+      <visual>
+          <origin rpy="0 0 0" xyz="0 0 0.05"/>
+          <geometry>
+              <box size="0.1 0.1 0.1"/>
+          </geometry>
+      </visual>
+      <collision>
+          <origin rpy="0 0 0" xyz="0 0 .05"/>
+          <geometry>
+              <box size=".1 .1 .1"/>
+          </geometry>
+      </collision>
+  </link>
+
+  <gazebo>
+      <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+          <robotNamespace>/exc</robotNamespace>
+          <alwaysOn>true</alwaysOn>
+          <xyzOffset>0 0 .05</xyzOffset>
+          <bodyName>imu_link</bodyName>
+          <topicName>imu</topicName>
+          <serviceName>imu_service</serviceName>
+          <frameName>imu_link</frameName>
+          <gaussianNoise>0.05</gaussianNoise>
+          <updateRate>20.0</updateRate>
+      </plugin>
+</gazebo>
+
+<!--  <gazebo reference="imu_link">
+    <gravity>true</gravity>
+   <sensor name="imu_sensor" type="imu">
+      <always_on>true</always_on>
+      <update_rate>50</update_rate>
+      <visualize>true</visualize>
+      <topic>imuTest</topic>
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <robotNamespace>/exc</robotNamespace>
+        <topicName>imu</topicName>
+        <bodyName>imu_link</bodyName>
+        <updateRateHZ>50.0</updateRateHZ>
+        <gaussianNoise>0.00</gaussianNoise>
+        <xyzOffset>0 0 0.05</xyzOffset>
+        <rpyOffset>0 0 0</rpyOffset>
+        <frameName>imu_link</frameName>
+      </plugin>
+      <pose>0 0 0 0 0 0</pose>
+    </sensor>
+</gazebo>-->
+
 </robot>
