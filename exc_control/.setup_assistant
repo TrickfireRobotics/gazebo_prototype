@@ -1,0 +1,10 @@
+moveit_setup_assistant_config:
+  URDF:
+    package: exc_description
+    relative_path: urdf/exc.xacro
+  SRDF:
+    relative_path: config/excavator.srdf
+  CONFIG:
+    author_name: Adam Krpan
+    author_email: adam.krpan@outlook.com
+    generated_timestamp: 1508429678

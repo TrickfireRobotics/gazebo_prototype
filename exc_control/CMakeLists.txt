@@ -4,7 +4,7 @@ project(exc_control)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf2_ros)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf2_ros moveit_ros_planning_interface)
 
 catkin_package()
 
