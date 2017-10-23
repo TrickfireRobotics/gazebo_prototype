@@ -1,0 +1,9 @@
+controller_list:
+ - name: arm
+   action_ns: joints_controller/follow_joint_trajectory
+   type: FollowJointTrajectory
+   default: true
+   joints:
+      - turn_to_base
+      - lower_to_turn
+      - upper_to_lower

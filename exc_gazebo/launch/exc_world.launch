@@ -1,6 +1,13 @@
 <launch>
   <rosparam file="$(find exc_control)/config/exc_control.yaml" command="load"/>
 
+  <!-- Set the param that trajectory_execution_manager needs to find the controller plugin -->
+  <param name="~moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager"/>
+  <param name="moveit_controller_manager" value="moveit_simple_controller_manager/MoveItSimpleControllerManager"/>
+
+  <!-- The rest of the params are specific to this plugin -->
+  <rosparam file="$(find exc_control)/config/controllers.yaml" command="load"/>
+
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
   <arg name="gui" default="true"/>
@@ -18,6 +25,7 @@
 
   <!-- Load the URDF into the ROS Parameter Server -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find exc_description)/urdf/exc.xacro'" />
+  <param name="robot_description_semantic" command="$(find xacro)/xacro --inorder '$(find exc_description)/urdf/exc.xacro'" />
 
   <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model excavator -param robot_description joint_state_controller"/>
@@ -26,9 +34,20 @@
     <remap from="/joint_states" to="/exc/joint_states" />
   </node>
 
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/exc" args="joint_state_controller turntable_position_controller lower_arm_position_controller upper_arm_position_controller"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/exc" args="joint_state_controller arm_controller"/>
 
-  <!-- Adds an extra transform for the end of the arm -->
-  <node pkg="tf2_ros" type="static_transform_publisher" name="upper_arm_end" args="0 0 0.9144 0 0 0 /arm_upper /arm_upper_end"/>
+  <!-- Adds an extra static transform below the turntable that doesn't rotate with it -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_turn_static" args="0.414866 0 0 0 0 0 /base_link /turntable_static"/>
+
+  <param name="allowed_goal_duration_margin" value="10.0"/>
+
+  <include file="$(find exc_control)/launch/planning_context.launch">
+    <arg name="load_robot_description" value="true"/>
+  </include>
+
+  <include file="$(find exc_control)/launch/move_group.launch">
+    <arg name="allow_trajectory_execution" value="true"/>
+    <arg name="info" value="true"/>
+    <arg name="debug" value="$(arg debug)"/>
+  </include>
 </launch>

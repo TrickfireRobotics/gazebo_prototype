@@ -256,4 +256,17 @@
       <motorTorqueConstant>1</motorTorqueConstant>
     </actuator>
   </transmission>
+
+  <link name="arm_end" >
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 0.1" />
+      </geometry>
+    </visual>
+  </link>
+  <joint name="end_to_arm" type="fixed">
+    <parent link="arm_upper" />
+    <child link="arm_end" />
+    <origin xyz="0 0 ${36*itom}" />
+  </joint>
 </robot>

@@ -1,0 +1,5 @@
+controller_list:
+  - name: fake_arm_controller
+    joints:
+      - lower_to_turn
+      - upper_to_lower
