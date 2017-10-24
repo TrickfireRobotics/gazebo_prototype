@@ -42,6 +42,7 @@
     <!-- Set the display variable, in case OpenGL code is used internally -->
     <env name="DISPLAY" value="$(optenv DISPLAY :0)" />
     <remap from="/arm/joints_controller/follow_joint_trajectory" to="/exc/arm_controller/follow_joint_trajectory" />
+    <remap from="/arm_end/joints_controller/follow_joint_trajectory" to="/exc/arm_end_controller/follow_joint_trajectory" />
     <remap from="/joint_states" to="/exc/joint_states" />
 
     <param name="allow_trajectory_execution" value="$(arg allow_trajectory_execution)"/>

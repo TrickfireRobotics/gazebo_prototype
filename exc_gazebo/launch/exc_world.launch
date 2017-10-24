@@ -34,7 +34,7 @@
     <remap from="/joint_states" to="/exc/joint_states" />
   </node>
 
-  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/exc" args="joint_state_controller arm_controller"/>
+  <node name="controller_spawner" pkg="controller_manager" type="spawner" respawn="false" output="screen" ns="/exc" args="joint_state_controller arm_controller arm_end_controller"/>
 
   <!-- Adds an extra static transform below the turntable that doesn't rotate with it -->
   <node pkg="tf2_ros" type="static_transform_publisher" name="base_to_turn_static" args="0.414866 0 0 0 0 0 /base_link /turntable_static"/>

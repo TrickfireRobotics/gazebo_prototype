@@ -9,11 +9,17 @@
     <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
     <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
     <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm_end">
+        <joint name="end_to_arm" />
+        <group name="arm" />
+    </group>
     <group name="arm">
-        <chain base_link="turntable" tip_link="arm_end" />
+        <joint name="turn_to_base" />
+        <joint name="lower_to_turn" />
+        <joint name="upper_to_lower" />
     </group>
     <!--END EFFECTOR: Purpose: Represent information about an end effector.-->
-    <end_effector name="arm_end" parent_link="arm_upper" group="arm" />
+    <end_effector name="arm_end" parent_link="arm_upper" group="arm_end" parent_group="arm" />
     <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
     <passive_joint name="wheel_fl_joint" />
     <passive_joint name="wheel_fr_joint" />

@@ -46,6 +46,17 @@ exc:
         trajectory: 1.0
         goal: 50.0
 
+  arm_end_controller:
+    type: effort_controllers/JointTrajectoryController
+    joints:
+      - end_to_arm
+    gains:
+      end_to_arm: {p: 10000.0, i: 0.0, d: 10000.0}
+    constraints:
+      end_to_arm:
+        trajectory: 1.0
+        goal: 50.0
+
   #lower_arm_position_controller:
   #  type: effort_controllers/JointTrajectoryController
   #  joint: lower_to_turn
