@@ -147,10 +147,34 @@
     </inertial>
   </link>
 
+  <link name="annoying_robot_part_that_gets_in_the_way_of_everything" >
+    <visual>
+      <geometry>
+        <box size="${6*itom} ${6*itom} ${18*itom}" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${6*itom} ${6*itom} ${18*itom}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
   <joint name="laser_to_base" type="fixed">
     <parent link="base_link" />
     <child link="laser_link" />
     <origin xyz="${base_length/2} 0 ${12*itom}" />
+  </joint>
+
+  <joint name="annoyance_to_base" type="fixed">
+    <parent link="base_link" />
+    <child link="annoying_robot_part_that_gets_in_the_way_of_everything" />
+    <origin xyz="${-base_length/2} 0 ${base_height + 6*itom}" />
   </joint>
 
   <joint name="god_to_base" type="fixed">
