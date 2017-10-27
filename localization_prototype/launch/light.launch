@@ -1,0 +1,15 @@
+<launch>
+    <!--launch the simulator-->
+    <include file="$(find exc_gazebo)/launch/exc_world_headless.launch"/>
+    <!--launch the controller-->
+    <node name="controller" pkg="exc_control" type="driver_station"/>
+
+    <node pkg="robot_localization" type="ekf_localization_node" name="ekf_se" clear_params="true">
+    <rosparam command="load" file="$(find localization_prototype)/params/ekf_template.yaml" />
+   <!--  Placeholder for output topic remapping
+    <remap from="odometry/filtered" to=""/>
+    <remap from="accel/filtered" to=""/>
+    -->
+    </node>
+    <include file="$(find exc_description)/launch/exc_rviz.launch"/>
+</launch>

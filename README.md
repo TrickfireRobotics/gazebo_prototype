@@ -12,7 +12,7 @@ If you have any build issues please by all means mention them to Adam (me), I'll
 No commits will be made to `master` except for changes that change the base robot that would be useful for all prototypes. For any feature you prototype (the digging arm, a Lidar, a Kinect, etc.) create a branch for it with a sensible, self-explanatory name. All prototypes will remain separate from each other and from `master` unless two prototypes feel it would be useful to merge together. Feel free to clone other prototype's branches to test them out, but do not modify them without permission from the prototype maintainer. If you're just messing around for fun keep it to your local machine, but if you think the changes constitute a notable feature/prototype development, go ahead and make a separate (also sensibly named) branch for it or let the prototyper know to implement it.
 
 ## Where to Go for Help
-Feel free to ask Adam for help with Gazebo or any of the base files. There is also a good getting started tutorial for installing Gazebo and basic model definitions at http://gazebosim.org/tutorials?cat=connect_ros. Also, check out the "RRBot" (Reverse Revolute Bot, or a double pendulum) example for a relatively easy to understand sample project here: http://gazebosim.org/tutorials/?tut=ros_urdf (this is part of the previously mentioned tutorial series, but to be honest the actual sample was much more useful than the tutorials by themselves for me). 
+Feel free to ask Adam for help with Gazebo or any of the base files. There is also a good getting started tutorial for installing Gazebo and basic model definitions at http://gazebosim.org/tutorials?cat=connect_ros. Also, check out the "RRBot" (Reverse Revolute Bot, or a double pendulum) example for a relatively easy to understand sample project here: http://gazebosim.org/tutorials/?tut=ros_urdf (this is part of the previously mentioned tutorial series, but to be honest the actual sample was much more useful than the tutorials by themselves for me).
 
 ## ROS Package Summary
 This repository is a higher-level folder of 3 separate but related ROS packages.
@@ -24,3 +24,10 @@ This contains the Gazebo world and the launch file to bring it up and spawn a ro
 
 ### exc_control
 This contains anything needed to control the robot. Currently there is a very simple driver station application in the `src` folder. It's a black window and simply uses WASD controls to drive the robot. This can be relatively easily expanded on with more keybinds, mouse, or joystick input.
+
+## localization_prototype
+This contains the setup and launch files for robot_localization package
+Note the robot_localization package needs to be installed:
+
+This had a missing dependency on my machine:
+sudo apt-get install ros-kinetic-geographic-msgs

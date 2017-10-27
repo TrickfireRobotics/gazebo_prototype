@@ -1,4 +1,5 @@
 <?xml version="1.0"?>
+
 <package format="2">
   <name>localization_prototype</name>
   <version>0.0.0</version>
@@ -7,13 +8,13 @@
   <!-- One maintainer tag required, multiple allowed, one person per tag -->
   <!-- Example:  -->
   <!-- <maintainer email="jane.doe@example.com">Jane Doe</maintainer> -->
-  <maintainer email="collin@todo.todo">collin</maintainer>
+  <maintainer email="collinsconway@gmail.com">collin</maintainer>
 
 
   <!-- One license tag required, multiple allowed, one license per tag -->
   <!-- Commonly used license strings: -->
   <!--   BSD, MIT, Boost Software License, GPLv2, GPLv3, LGPLv2.1, LGPLv3 -->
-  <license>TODO</license>
+  <license>BSD</license>
 
 
   <!-- Url tags are optional, but multiple are allowed, one per tag -->
@@ -58,6 +59,7 @@
   <build_depend>exc_gazebo/</build_depend>
   <build_export_depend>exc_gazebo/</build_export_depend>
   <exec_depend>exc_gazebo/</exec_depend>
+  <exec_depend>robot_localization</exec_depend>
   <!-- The export tag contains other, unspecified, tags -->
   <export>
     <!-- Other tools can request additional information be placed here -->
