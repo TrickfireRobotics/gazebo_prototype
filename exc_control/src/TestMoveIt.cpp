@@ -52,8 +52,15 @@ int main(int argc, char **argv)
   test_constraints.orientation_constraints.push_back(ocm);
   move_group.setPathConstraints(test_constraints);*/
 
+  cout << "Enter target x, z, and theta (degrees): ";
+  double x, z, theta;
+  //cin >> x >> z >> theta;
+  cout << endl;
+  theta *= 3.14159265/180; // Convert to radians in place, so it's simpler later
+
   geometry_msgs::Pose target_pose;
-  tf::Quaternion targetAngle = tf::createQuaternionFromRPY(0.0, 3.14159265/2, 0.0);
+  // Pointing downwards and at the specified angle
+  tf::Quaternion targetAngle = tf::createQuaternionFromRPY(3.14159265, 3.14159265/2, -3.14159265/2);
   targetAngle.normalize(); // Just in case
 
   target_pose.orientation.x = targetAngle[0];
@@ -61,13 +68,14 @@ int main(int argc, char **argv)
   target_pose.orientation.z = targetAngle[2];
   target_pose.orientation.w = targetAngle[3];
 
-  cout << "Enter target x and z";
-  cin >> target_pose.position.x >> target_pose.position.z;
-  cout << endl;
+  //target_pose.position.x = 0.5 + (x * cos(theta));
+  //target_pose.position.y = x * sin(theta);
+  //target_pose.position.z = z;
 
-  //target_pose.position.x = 1.5;
-  target_pose.position.y = 0.0;
-  //target_pose.position.z = 1.0;
+  target_pose.position.x = 0.5;
+  target_pose.position.y = 1.5;
+  target_pose.position.z = 1.0;
+  ROS_INFO("Position x,y: %f, %f, %f", target_pose.position.x, target_pose.position.y, theta);
   move_group.setPoseTarget(target_pose);
 
   moveit::planning_interface::MoveGroupInterface::Plan my_plan;
