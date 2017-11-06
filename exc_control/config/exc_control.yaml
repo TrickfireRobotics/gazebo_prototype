@@ -32,30 +32,30 @@ exc:
       - lower_to_turn
       - upper_to_lower
     gains:
-      turn_to_base: {p: 10000.0, i: 0.0, d: 10000.0}
-      lower_to_turn: {p: 10000.0, i: 0.0, d: 10000.0}
-      upper_to_lower: {p: 10000.0, i: 0.0, d: 10000.0}
-    constraints:
-      turn_to_base:
-        trajectory: 1.0
-        goal: 50.0
-      lower_to_turn:
-        trajectory: 1.0
-        goal: 50.0
-      upper_to_lower:
-        trajectory: 1.0
-        goal: 50.0
+      turn_to_base: {p: 100000.0, i: 100000.0, d: 100000.0}
+      lower_to_turn: {p: 100000.0, i: 100000.0, d: 100000.0}
+      upper_to_lower: {p: 100000.0, i: 100000.0, d: 100000.0}
+#    constraints:
+#      turn_to_base:
+#        trajectory: 1.0
+#        goal: 50.0
+#      lower_to_turn:
+#        trajectory: 1.0
+#        goal: 50.0
+#      upper_to_lower:
+#        trajectory: 1.0
+#        goal: 50.0
 
   arm_end_controller:
     type: effort_controllers/JointTrajectoryController
     joints:
       - end_to_arm
     gains:
-      end_to_arm: {p: 10000.0, i: 0.0, d: 10000.0}
-    constraints:
-      end_to_arm:
-        trajectory: 1.0
-        goal: 50.0
+      end_to_arm: {p: 100000.0, i: 100000.0, d: 100000.0}
+#    constraints:
+#      end_to_arm:
+#        trajectory: 1.0
+#        goal: 50.0
 
   #lower_arm_position_controller:
   #  type: effort_controllers/JointTrajectoryController
