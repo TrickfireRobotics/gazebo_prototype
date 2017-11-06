@@ -4,7 +4,7 @@ project(exc_control)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf2_ros moveit_ros_planning_interface)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs tf2_ros moveit_ros_planning_interface moveit_visual_tools rviz_visual_tools)
 
 catkin_package()
 
@@ -23,3 +23,6 @@ target_link_libraries(driver_station ${catkin_LIBRARIES} sfml-system sfml-window
 
 add_executable(point_targeter src/PointTargeter.cpp)
 target_link_libraries(point_targeter ${catkin_LIBRARIES})
+
+add_executable(test_plan src/TestMoveIt.cpp)
+target_link_libraries(test_plan ${catkin_LIBRARIES} ${Boost_LIBRARIES})
