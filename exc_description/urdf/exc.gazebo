@@ -37,12 +37,57 @@
       <torque>20000</torque>
       <topicName>cmd_vel</topicName>
       <commandTopic>cmd_vel</commandTopic>
-      <odometryTopic>odom</odometryTopic>
-      <odometryFrame>odom</odometryFrame>
+      <odometryTopic>odom2</odometryTopic> <!-- odom2 to make sure it doesn't interfere with RGBDSLAM -->
+      <odometryFrame>odom2</odometryFrame>
       <covariance_x>0.000100</covariance_x>
       <covariance_y>0.000100</covariance_y>
       <covariance_yaw>0.010000</covariance_yaw>
       <broadcastTF>true</broadcastTF>
     </plugin>
+  </gazebo>
+
+  <gazebo reference="kinect_link">
+    <sensor type="depth" name="kinect">
+      <always_on>1</always_on>
+      <visualize>true</visualize>
+      <camera>
+        <horizontal_fov>1.5</horizontal_fov> <!-- 2.96 for 170 degrees, 1.047 for original -->
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <depth_camera>
+
+        </depth_camera>
+        <clip>
+          <near>0.01</near>
+          <far>1000</far>
+        </clip>
+      </camera>
+      <plugin name="camera_controller" filename="libgazebo_ros_openni_kinect.so">
+        <alwaysOn>true</alwaysOn>
+        <updateRate>10.0</updateRate>
+        <cameraName>kinect</cameraName>
+        <!-- TODO: second frame, use only for kinect processing -->
+        <frameName>pctf</frameName>
+        <imageTopicName>rgb/image_raw</imageTopicName>
+        <depthImageTopicName>depth/image_raw</depthImageTopicName>
+        <pointCloudTopicName>depth/points</pointCloudTopicName>
+        <cameraInfoTopicName>rgb/camera_info</cameraInfoTopicName>
+        <depthImageCameraInfoTopicName>depth/camera_info</depthImageCameraInfoTopicName>
+        <pointCloudCutoff>0.4</pointCloudCutoff>
+        <hackBaseline>0.07</hackBaseline>
+        <distortionK1>0.0</distortionK1>
+        <distortionK2>0.0</distortionK2>
+        <distortionK3>0.0</distortionK3>
+        <distortionT1>0.0</distortionT1>
+        <distortionT2>0.0</distortionT2>
+        <CxPrime>0.0</CxPrime>
+        <Cx>0.0</Cx>
+        <Cy>0.0</Cy>
+        <focalLength>0.0</focalLength>
+      </plugin>
+    </sensor>
   </gazebo>
 </robot>

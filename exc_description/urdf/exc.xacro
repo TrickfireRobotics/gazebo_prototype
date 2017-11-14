@@ -134,4 +134,28 @@
     <child link="base_link" />
     <origin xyz="0 0 0" />
   </joint>
+
+  <link name="kinect_link" >
+    <visual>
+      <geometry>
+        <box size="${itom} ${itom} ${itom}" />
+      </geometry>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${itom} ${itom} ${itom}" />
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
+
+  <joint name="kinect_to_base" type="fixed">
+    <parent link="base_link" />
+    <child link="kinect_link" />
+    <origin xyz="${base_length/2} 0 ${12*itom}" />
+  </joint>
 </robot>

@@ -29,4 +29,53 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
     <remap from="/joint_states" to="/exc/joint_states" />
   </node>
+
+  <node pkg="tf2_ros" type="static_transform_publisher" name="camera_to_pc" args="0 0 0 -1.5708 0 -1.5708 /kinect_link /pctf" />
+
+  <group ns="rtabmap">
+    <node pkg="rtabmap_ros" type="rgbd_odometry" name="rgbd_odometry" output="screen">
+      <remap from="rgb/image"       to="/kinect/rgb/image_raw"/> <!-- Had to change -->
+      <remap from="rgb/camera_info" to="/kinect/rgb/camera_info"/>
+
+      <remap from="depth/image"     to="/kinect/depth/image_raw"/> <!-- Had to change -->
+      <remap from="depth/camera_info"     to="/kinect/depth/camera_info"/>
+      <param name="frame_id" type="string" value="base_link"/>
+      <param name="Odom/ResetCountdown" type="string" value="1"/>
+      <param name="Reg/Force3DoF"    value="true" />
+    </node>
+    <node name="rtabmap" pkg="rtabmap_ros" type="rtabmap" output="screen" args="--delete_db_on_start">
+      <param name="frame_id" type="string" value="base_link"/>
+      <param name="subscribe_depth" type="bool" value="true"/>
+
+      <remap from="odom" to="odom"/>
+
+      <remap from="rgb/image" to="/kinect/rgb/image_raw"/> <!-- Had to change -->
+      <remap from="rgb/camera_info" to="/kinect/rgb/camera_info"/>
+
+      <remap from="depth/image" to="/kinect/depth/image_raw"/> <!-- Had to change -->
+      <remap from="depth/camera_info" to="/kinect/depth/camera_info"/>
+
+      <param name="queue_size" type="int" value="10"/>
+
+      <param name="RGBD/AngularUpdate" type="string" value="0.01"/>
+      <param name="RGBD/LinearUpdate" type="string" value="0.01"/>
+      <param name="Rtabmap/TimeThr" type="string" value="700"/>
+      <param name="Mem/RehearsalSimilarity" type="string" value="0.45"/>
+      <param name="RGBD/OptimizeFromGraphEnd" type="string" value="true"/>
+
+      <param name="Rtabmap/StartNewMapOnLoopClosure" value="true"/>
+    </node>
+  </group>
+
+  <group ns="move_base">
+    <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+      <remap from="map" to="/rtabmap/grid_map"/>
+      <remap from="/move_base/cmd_vel" to="/exc/cmd_vel" />
+      <rosparam file="$(find exc_control)/navigation_params/costmap_common_params.yaml" command="load" ns="global_costmap" />
+      <rosparam file="$(find exc_control)/navigation_params/costmap_common_params.yaml" command="load" ns="local_costmap" />
+      <rosparam file="$(find exc_control)/navigation_params/local_costmap_params.yaml" command="load" />
+      <rosparam file="$(find exc_control)/navigation_params/global_costmap_params.yaml" command="load" />
+      <rosparam file="$(find exc_control)/navigation_params/base_local_planner_params.yaml" command="load" />
+    </node>
+  </group>
 </launch>
