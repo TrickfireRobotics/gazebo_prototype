@@ -19,14 +19,14 @@
 
   <gazebo>
     <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
-      <robotNamespace>/exc</robotNamespace>
+      <robotNamespace></robotNamespace>
     </plugin>
   </gazebo>
 
   <gazebo>
     <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
       <updateRate>100.0</updateRate>
-      <robotNamespace>/exc</robotNamespace>
+      <robotNamespace></robotNamespace>
       <leftFrontJoint>wheel_fl_joint</leftFrontJoint>
       <rightFrontJoint>wheel_fr_joint</rightFrontJoint>
       <leftRearJoint>wheel_rl_joint</leftRearJoint>

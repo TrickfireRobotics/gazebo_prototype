@@ -1,13 +1,18 @@
 <launch>
+  <!-- Load all of the motor controllers -->
   <rosparam file="$(find exc_control)/config/exc_control.yaml" command="load"/>
 
+  <!-- Gazebo simulation properties -->
   <arg name="paused" default="false"/>
   <arg name="use_sim_time" default="true"/>
+  <!-- To disable the GUI and run headless, set these to false and true instead -->
   <arg name="gui" default="true"/>
   <arg name="headless" default="false"/>
   <arg name="debug" default="false"/>
 
+  <!-- Include the default Gazebo empty world launch file -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
+    <!-- If we want to use a different world you can change it here -->
     <arg name="world_name" value="$(find exc_gazebo)/worlds/exc.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
@@ -16,17 +21,15 @@
     <arg name="headless" value="$(arg headless)"/>
   </include>
 
-  <!-- Load the URDF into the ROS Parameter Server -->
+  <!-- Load the URDF into the ROS Parameter Server, processing macros as we do -->
   <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find exc_description)/urdf/exc.xacro'" />
 
-  <!-- Run a python script to the send a service call to gazebo_ros to spawn a URDF robot -->
+  <!-- Spawn the URDF in Gazebo using a service call -->
   <node name="urdf_spawner" pkg="gazebo_ros" type="spawn_model" respawn="false" output="screen" args="-urdf -model excavator -param robot_description joint_state_controller"/>
 
-  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" >
-    <remap from="/joint_states" to="/exc/joint_states" />
-  </node>
+  <!-- Publishes the states of the joints on the robot (this is what lets the wheels be seen in TF) -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
 
-  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen">
-    <remap from="/joint_states" to="/exc/joint_states" />
-  </node>
+  <!-- Publishes the state of the robot to TF for Rviz or other usages -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
 </launch>

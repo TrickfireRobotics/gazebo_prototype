@@ -11,7 +11,7 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "driverstation");
   ros::NodeHandle n;
 
-  ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("/exc/cmd_vel", 1);
+  ros::Publisher vel_pub = n.advertise<geometry_msgs::Twist>("/cmd_vel", 1);
 
   sf::RenderWindow window(sf::VideoMode(800, 600), "My window");
 
