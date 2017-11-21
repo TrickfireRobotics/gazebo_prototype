@@ -4,7 +4,7 @@ project(exc_control)
 
 add_compile_options(-std=c++11)
 
-find_package(catkin REQUIRED COMPONENTS roscpp std_msgs)
+find_package(catkin REQUIRED COMPONENTS roscpp std_msgs controller_manager)
 
 catkin_package()
 
@@ -23,3 +23,6 @@ target_link_libraries(driver_station ${catkin_LIBRARIES} sfml-system sfml-window
 
 add_executable(arduino_interface src/ArduinoInterface.cpp)
 target_link_libraries(arduino_interface ${catkin_LIBRARIES})
+
+add_executable(test_main src/TestMain.cpp)
+target_link_libraries(test_main ${catkin_LIBRARIES})

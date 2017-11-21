@@ -1,0 +1,23 @@
+<launch>
+  <!-- Load all of the motor controllers -->
+  <rosparam file="$(find exc_control)/config/exc_control.yaml" command="load"/>
+
+  <!-- Load the URDF into the ROS Parameter Server, processing macros as we do -->
+  <param name="robot_description" command="$(find xacro)/xacro --inorder '$(find exc_description)/urdf/exc.xacro'" />
+
+  <!-- Publishes the states of the joints on the robot (this is what lets the wheels be seen in TF) -->
+  <node name="joint_state_publisher" pkg="joint_state_publisher" type="joint_state_publisher" />
+
+  <!-- Publishes the state of the robot to TF for Rviz or other usages -->
+  <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+
+  <!-- Load the controller manager plugin for the drivebase -->
+  <node name="test_main" pkg="exc_control" type="test_main" />
+
+  <!-- Start the Arduino interface to communicate with the sensors and motors -->
+  <node name="rosserial" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
+
+  <!-- Spawn the controllers -->
+  <node name="controller_spawner" pkg="controller_manager" type="spawner"
+          args="exc/joint_state_controller exc/wheel_fl_velocity_controller --shutdown-timeout 1"/>
+</launch>

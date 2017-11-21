@@ -80,7 +80,7 @@ int main(int argc, char **argv) {
     if (ret > 0) {
       if (buf[0] == '\n') {
         float d = atof(tempBuf);
-        ROS_INFO("Read number: %f", d);
+        //ROS_INFO("Read number: %f", d);
         bufLen = 0;
 
         std_msgs::Float64 toPub;
