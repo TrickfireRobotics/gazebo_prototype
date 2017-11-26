@@ -26,3 +26,6 @@ target_link_libraries(arduino_interface ${catkin_LIBRARIES})
 
 add_executable(test_main src/TestMain.cpp)
 target_link_libraries(test_main ${catkin_LIBRARIES})
+
+add_executable(diff_drive src/DiffDrive.cpp)
+target_link_libraries(diff_drive ${catkin_LIBRARIES})

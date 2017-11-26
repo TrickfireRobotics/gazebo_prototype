@@ -15,23 +15,23 @@ public:
     // connect and register the joint state interface
     hardware_interface::JointStateHandle wheel_fl_state_handle("wheel_fl_joint", &pos[0], &vel[0], &eff[0]);
     jnt_state_interface.registerHandle(wheel_fl_state_handle);
-    /*hardware_interface::JointStateHandle wheel_fl_state_handle("wheel_fr_joint", &pos[1], &vel[1], &eff[1]);
-    jnt_state_interface.registerHandle(wheel_fl_state_handle);
-    hardware_interface::JointStateHandle wheel_fl_state_handle("wheel_rl_joint", &pos[2], &vel[2], &eff[2]);
-    jnt_state_interface.registerHandle(wheel_fl_state_handle);
-    hardware_interface::JointStateHandle wheel_fl_state_handle("wheel_rr_joint", &pos[3], &vel[3], &eff[3]);
-    jnt_state_interface.registerHandle(wheel_fl_state_handle);*/
+    hardware_interface::JointStateHandle wheel_fr_state_handle("wheel_fr_joint", &pos[1], &vel[1], &eff[1]);
+    jnt_state_interface.registerHandle(wheel_fr_state_handle);
+    hardware_interface::JointStateHandle wheel_rl_state_handle("wheel_rl_joint", &pos[2], &vel[2], &eff[2]);
+    jnt_state_interface.registerHandle(wheel_rl_state_handle);
+    hardware_interface::JointStateHandle wheel_rr_state_handle("wheel_rr_joint", &pos[3], &vel[3], &eff[3]);
+    jnt_state_interface.registerHandle(wheel_rr_state_handle);
 
     registerInterface(&jnt_state_interface);
     // connect and register the joint position interface
     hardware_interface::JointHandle wheel_fl_eff_handle(jnt_state_interface.getHandle("wheel_fl_joint"), &cmd[0]);
     jnt_eff_interface.registerHandle(wheel_fl_eff_handle);
-    /*hardware_interface::JointHandle wheel_fl_eff_handle(jnt_state_interface.getHandle("wheel_fr_joint"), &cmd[1]);
-    jnt_eff_interface.registerHandle(wheel_fl_eff_handle);
-    hardware_interface::JointHandle wheel_fl_eff_handle(jnt_state_interface.getHandle("wheel_rl_joint"), &cmd[2]);
-    jnt_eff_interface.registerHandle(wheel_fl_eff_handle);
-    hardware_interface::JointHandle wheel_fl_eff_handle(jnt_state_interface.getHandle("wheel_rr_joint"), &cmd[3]);
-    jnt_eff_interface.registerHandle(wheel_fl_eff_handle);*/
+    hardware_interface::JointHandle wheel_fr_eff_handle(jnt_state_interface.getHandle("wheel_fr_joint"), &cmd[1]);
+    jnt_eff_interface.registerHandle(wheel_fr_eff_handle);
+    hardware_interface::JointHandle wheel_rl_eff_handle(jnt_state_interface.getHandle("wheel_rl_joint"), &cmd[2]);
+    jnt_eff_interface.registerHandle(wheel_rl_eff_handle);
+    hardware_interface::JointHandle wheel_rr_eff_handle(jnt_state_interface.getHandle("wheel_rr_joint"), &cmd[3]);
+    jnt_eff_interface.registerHandle(wheel_rr_eff_handle);
 
     registerInterface(&jnt_eff_interface);
   }
