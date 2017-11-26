@@ -35,10 +35,10 @@ void drive_callback(const geometry_msgs::Twist::ConstPtr& msg) {
 int main(int argc, char **argv) {
     ros::init(argc, argv, "driverstation");
     ros::NodeHandle n;
-    ros::Publisher _fl = n.advertise<std_msgs::Float64>("/exc/wheel_fl_velocity_controller/command", 1);
-    ros::Publisher _fr = n.advertise<std_msgs::Float64>("/exc/wheel_fr_velocity_controller/command", 1);
-    ros::Publisher _rl = n.advertise<std_msgs::Float64>("/exc/wheel_rl_velocity_controller/command", 1);
-    ros::Publisher _rr = n.advertise<std_msgs::Float64>("/exc/wheel_rr_velocity_controller/command", 1);
+    ros::Publisher _fl = n.advertise<std_msgs::Float64>("/wheel_fl_velocity_controller/command", 1);
+    ros::Publisher _fr = n.advertise<std_msgs::Float64>("/wheel_fr_velocity_controller/command", 1);
+    ros::Publisher _rl = n.advertise<std_msgs::Float64>("/wheel_rl_velocity_controller/command", 1);
+    ros::Publisher _rr = n.advertise<std_msgs::Float64>("/wheel_rr_velocity_controller/command", 1);
     fl = &_fl;
     fr = &_fr;
     rl = &_rl;

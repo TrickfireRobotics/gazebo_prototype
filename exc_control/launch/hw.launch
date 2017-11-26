@@ -19,7 +19,7 @@
 
   <!-- Spawn the controllers -->
   <node name="controller_spawner" pkg="controller_manager" type="spawner"
-          args="exc/joint_state_controller exc/wheel_fl_velocity_controller exc/wheel_fr_velocity_controller exc/wheel_rl_velocity_controller exc/wheel_rr_velocity_controller --shutdown-timeout 1"/>
+          args="joint_state_controller wheel_fl_velocity_controller wheel_fr_velocity_controller wheel_rl_velocity_controller wheel_rr_velocity_controller --shutdown-timeout 1"/>
 
   <node name="diff_drive" pkg="exc_control" type="diff_drive" />
 </launch>
