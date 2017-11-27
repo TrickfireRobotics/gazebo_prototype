@@ -24,8 +24,8 @@ target_link_libraries(driver_station ${catkin_LIBRARIES} sfml-system sfml-window
 add_executable(arduino_interface src/ArduinoInterface.cpp)
 target_link_libraries(arduino_interface ${catkin_LIBRARIES})
 
-add_executable(drivebase_controller src/DrivebaseController.cpp)
-target_link_libraries(drivebase_controller ${catkin_LIBRARIES})
+add_executable(controller_launcher src/ControllerLauncher.cpp)
+target_link_libraries(controller_launcher ${catkin_LIBRARIES})
 
 add_executable(diff_drive src/DiffDrive.cpp)
 target_link_libraries(diff_drive ${catkin_LIBRARIES})

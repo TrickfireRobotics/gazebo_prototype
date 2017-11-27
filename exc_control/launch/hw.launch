@@ -12,7 +12,7 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
 
   <!-- Load the controller manager plugin for the drivebase -->
-  <node name="drivebase_controller" pkg="exc_control" type="drivebase_controller" />
+  <node name="controller_launcher" pkg="exc_control" type="controller_launcher" />
 
   <!-- Start the Arduino interface to communicate with the sensors and motors -->
   <node name="rosserial" pkg="rosserial_python" type="serial_node.py" args="/dev/ttyACM0" />
@@ -23,7 +23,8 @@
                 wheel_fl_velocity_controller
                 wheel_fr_velocity_controller
                 wheel_rl_velocity_controller
-                wheel_rr_velocity_controller --shutdown-timeout 1"/>
+                wheel_rr_velocity_controller
+                arm_position_controller --shutdown-timeout 1"/>
 
   <node name="diff_drive" pkg="exc_control" type="diff_drive" />
 </launch>

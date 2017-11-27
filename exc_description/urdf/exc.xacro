@@ -134,4 +134,40 @@
     <child link="base_link" />
     <origin xyz="0 0 0" />
   </joint>
+
+  <link name="arm">
+    <visual>
+      <geometry>
+        <box size="${6*itom} ${6*itom} ${24*itom}" />
+      </geometry>
+      <origin xyz="0 0 ${12*itom}" />
+    </visual>
+    <collision>
+      <geometry>
+        <box size="${6*itom} ${6*itom} ${24*itom}" />
+      </geometry>
+      <origin xyz="0 0 ${12*itom}" />
+    </collision>
+    <inertial>
+      <mass value="50"/> <!-- TODO: Update with proper mass, possibly calculated from Solidworks? -->
+      <inertia ixx="100.0" ixy="0.0" ixz="0.0" iyy="100.0" iyz="0.0" izz="100.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
+    </inertial>
+  </link>
+  <joint name="arm_joint" type="revolute">
+    <parent link="base_link" />
+    <child link="arm" />
+    <origin xyz="${base_length/2} 0 ${base_height/2}" rpy="0 0 ${pi/2}" />
+    <limit effort="50.0" velocity="50.0" lower="0.0" upper="${pi/2}" />
+  </joint>
+  <transmission name="arm_tran">
+    <type>transmission_interface/SimpleTransmission</type>
+    <joint name="arm_joint">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+    </joint>
+    <actuator name="arm_motor">
+      <hardwareInterface>hardware_interface/EffortJointInterface</hardwareInterface>
+      <mechanicalReduction>1</mechanicalReduction>
+      <motorTorqueConstant>1</motorTorqueConstant>
+    </actuator>
+  </transmission>
 </robot>
