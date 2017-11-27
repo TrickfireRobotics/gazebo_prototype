@@ -8,7 +8,7 @@ class Drivebase : public hardware_interface::RobotHW
 {
 public:
   double potVal;
-  ros::Publisher* pub;
+  ros::Publisher *pub_fl, *pub_fr, *pub_rl, *pub_rr;
 
   Drivebase()
   {
@@ -37,14 +37,25 @@ public:
   }
 
   void read() {
-    vel[0] = potVal;
+    ROS_INFO("Pot val: %f", (potVal * 2.0) - 1.0);
+    //vel[0] = (potVal * 2.0) - 1.0;
+    vel[0] = 0.0;
+    vel[1] = 0.0;
+    vel[2] = 0.0;
+    vel[3] = 0.0;
   }
 
   void write() {
-    ROS_INFO("Current command: %f", cmd[0]);
-    std_msgs::Float64 toPub;
-    toPub.data = cmd[0];
-    pub->publish(toPub);
+    ROS_INFO("Current command: %f, %f, %f, %f", cmd[0], cmd[1], cmd[2], cmd[3]);
+    std_msgs::Float64 fl, fr, rl, rr;
+    fl.data = cmd[0];
+    fr.data = cmd[1];
+    rl.data = cmd[2];
+    rr.data = cmd[3];
+    pub_fl->publish(fl);
+    pub_fr->publish(fr);
+    pub_rl->publish(rl);
+    pub_rr->publish(rr);
   }
 
 private:

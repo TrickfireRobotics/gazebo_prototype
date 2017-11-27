@@ -14,8 +14,14 @@ int main(int argc, char **argv)
   ros::init(argc, argv, "driverstation");
   ros::NodeHandle n;
   ros::Subscriber sub = n.subscribe("potentiometer_val", 1, pot_callback);
-  ros::Publisher pub = n.advertise<std_msgs::Float64>("/motor_out", 1);
-  robot.pub = &pub;
+  ros::Publisher pub_fl = n.advertise<std_msgs::Float64>("/motor_fl", 1);
+  ros::Publisher pub_fr = n.advertise<std_msgs::Float64>("/motor_fr", 1);
+  ros::Publisher pub_rl = n.advertise<std_msgs::Float64>("/motor_rl", 1);
+  ros::Publisher pub_rr = n.advertise<std_msgs::Float64>("/motor_rr", 1);
+  robot.pub_fl = &pub_fl;
+  robot.pub_fr = &pub_fr;
+  robot.pub_rl = &pub_rl;
+  robot.pub_rr = &pub_rr;
 
   controller_manager::ControllerManager cm(&robot);
 
@@ -28,7 +34,6 @@ int main(int argc, char **argv)
 
   while (ros::ok())
   {
-    ROS_INFO("Doing the thing!");
     const ros::Time now = ros::Time::now();
 
     robot.read();
