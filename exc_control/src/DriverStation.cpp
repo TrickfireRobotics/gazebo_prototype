@@ -27,7 +27,7 @@ int main(int argc, char **argv)
         }
         case sf::Event::KeyPressed:
         case sf::Event::KeyReleased: {
-          /*geometry_msgs::Twist twist;
+          geometry_msgs::Twist twist;
 
           float drive = 0.f, rot = 0.f;
 
@@ -45,7 +45,7 @@ int main(int argc, char **argv)
           }
           twist.linear.x = drive * 1.f;
           twist.angular.z = -rot * 1.f;
-          vel_pub.publish(twist);*/
+          vel_pub.publish(twist);
         }
         case sf::Event::JoystickMoved: {
           geometry_msgs::Twist twist;
