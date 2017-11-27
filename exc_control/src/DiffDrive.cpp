@@ -8,7 +8,7 @@ using namespace std;
 ros::Publisher *fl, *fr, *rl, *rr;
 void drive_callback(const geometry_msgs::Twist::ConstPtr& msg) {
     // Steering:
-    // -1 <-- 0 --> +1
+    // +1 <-- 0 --> -1
 
     // Axes:
     // X of linear for drive, Z of angular for turning
@@ -20,8 +20,8 @@ void drive_callback(const geometry_msgs::Twist::ConstPtr& msg) {
     left.data += msg->linear.x;
     right.data += msg->linear.x;
 
-    left.data += msg->angular.z;
-    right.data -= msg->angular.z;
+    left.data -= msg->angular.z;
+    right.data += msg->angular.z;
 
     left.data = max(-1.0, min(left.data, 1.0));
     right.data = max(-1.0, min(right.data, 1.0));

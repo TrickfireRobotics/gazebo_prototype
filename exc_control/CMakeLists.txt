@@ -21,9 +21,6 @@ add_executable(driver_station src/DriverStation.cpp)
 target_link_libraries(driver_station ${catkin_LIBRARIES} sfml-system sfml-window sfml-graphics)
 #add_dependencies(driver_station exc_control_generate_messages_cpp)
 
-add_executable(arduino_interface src/ArduinoInterface.cpp)
-target_link_libraries(arduino_interface ${catkin_LIBRARIES})
-
 add_executable(controller_launcher src/ControllerLauncher.cpp)
 target_link_libraries(controller_launcher ${catkin_LIBRARIES})
 
