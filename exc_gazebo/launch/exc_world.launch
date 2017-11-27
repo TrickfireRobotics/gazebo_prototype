@@ -34,9 +34,9 @@
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
 
   <node pkg="laser_filters" type="scan_to_scan_filter_chain"
-      name="laser_filter" ns="exc">
+      name="laser_filter">
     <rosparam command="load" file="$(find exc_control)/config/laser_filter.yaml" />
-    <remap from="/scan" to="/exc/laser/scan" />
-    <remap from="/scan_filtered" to="exc/laser/scan_fitered" />
+    <remap from="/scan" to="/laser/scan" />
+    <remap from="/scan_filtered" to="/laser/scan_fitered" />
   </node>
 </launch>
