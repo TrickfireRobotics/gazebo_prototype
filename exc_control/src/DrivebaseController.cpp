@@ -2,11 +2,11 @@
 #include <ros/ros.h>
 #include <controller_manager/controller_manager.h>
 
-Drivebase robot;
+Drivebase base;
 
 void pot_callback(const std_msgs::Float64::ConstPtr& msg) {
   //ROS_INFO("Received motor output message: %f", msg->data);
-  robot.potVal = msg->data;
+  base.potVal = msg->data;
 }
 
 int main(int argc, char **argv)
@@ -18,12 +18,12 @@ int main(int argc, char **argv)
   ros::Publisher pub_fr = n.advertise<std_msgs::Float64>("/motor_fr", 1);
   ros::Publisher pub_rl = n.advertise<std_msgs::Float64>("/motor_rl", 1);
   ros::Publisher pub_rr = n.advertise<std_msgs::Float64>("/motor_rr", 1);
-  robot.pub_fl = &pub_fl;
-  robot.pub_fr = &pub_fr;
-  robot.pub_rl = &pub_rl;
-  robot.pub_rr = &pub_rr;
+  base.pub_fl = &pub_fl;
+  base.pub_fr = &pub_fr;
+  base.pub_rl = &pub_rl;
+  base.pub_rr = &pub_rr;
 
-  controller_manager::ControllerManager cm(&robot);
+  controller_manager::ControllerManager cm(&base);
 
   ros::AsyncSpinner spinner(1);
 
@@ -36,9 +36,9 @@ int main(int argc, char **argv)
   {
     const ros::Time now = ros::Time::now();
 
-    robot.read();
+    base.read();
     cm.update(now, now - then);
-    robot.write();
+    base.write();
 
     then = now;
     rate.sleep();
