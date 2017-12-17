@@ -1,40 +1,39 @@
-exc:
-  # Publish all joint states -----------------------------------
-  joint_state_controller:
-    type: joint_state_controller/JointStateController
-    publish_rate: 50
+# Publish all joint states -----------------------------------
+joint_state_controller:
+  type: joint_state_controller/JointStateController
+  publish_rate: 50
 
-  # Position Controllers ---------------------------------------
-  wheel_fr_velocity_controller:
-    type: effort_controllers/JointVelocityController
-    joint: wheel_fr_joint
-    pid: {p: 10000.0, i: 500.0, d: 0.0}
+# Position Controllers ---------------------------------------
+wheel_fr_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_fr_joint
+  pid: {p: 10000.0, i: 500.0, d: 0.0}
 
-  wheel_fl_velocity_controller:
-    type: effort_controllers/JointVelocityController
-    joint: wheel_fl_joint
-    pid: {p: 10000.0, i: 500.0, d: 0.0}
+wheel_fl_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_fl_joint
+  pid: {p: 10000.0, i: 500.0, d: 0.0}
 
-  wheel_rr_velocity_controller:
-    type: effort_controllers/JointVelocityController
-    joint: wheel_rr_joint
-    pid: {p: 10000.0, i: 500.0, d: 0.0}
+wheel_rr_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_rr_joint
+  pid: {p: 10000.0, i: 500.0, d: 0.0}
 
-  wheel_rl_velocity_controller:
-    type: effort_controllers/JointVelocityController
-    joint: wheel_rl_joint
-    pid: {p: 10000.0, i: 500.0, d: 0.0}
+wheel_rl_velocity_controller:
+  type: effort_controllers/JointVelocityController
+  joint: wheel_rl_joint
+  pid: {p: 10000.0, i: 500.0, d: 0.0}
 
-  arm_controller:
-    type: effort_controllers/JointTrajectoryController
-    joints:
-      - turn_to_base
-      - lower_to_turn
-      - upper_to_lower
-    gains:
-      turn_to_base: {p: 100000.0, i: 100000.0, d: 100000.0}
-      lower_to_turn: {p: 100000.0, i: 100000.0, d: 100000.0}
-      upper_to_lower: {p: 100000.0, i: 100000.0, d: 100000.0}
+arm_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - turn_to_base
+    - lower_to_turn
+    - upper_to_lower
+  gains:
+    turn_to_base: {p: 100000.0, i: 100000.0, d: 100000.0}
+    lower_to_turn: {p: 100000.0, i: 100000.0, d: 100000.0}
+    upper_to_lower: {p: 100000.0, i: 100000.0, d: 100000.0}
 #    constraints:
 #      turn_to_base:
 #        trajectory: 1.0
@@ -46,12 +45,12 @@ exc:
 #        trajectory: 1.0
 #        goal: 50.0
 
-  arm_end_controller:
-    type: effort_controllers/JointTrajectoryController
-    joints:
-      - end_to_arm
-    gains:
-      end_to_arm: {p: 100000.0, i: 100000.0, d: 100000.0}
+arm_end_controller:
+  type: effort_controllers/JointTrajectoryController
+  joints:
+    - end_to_arm
+  gains:
+    end_to_arm: {p: 100000.0, i: 100000.0, d: 100000.0}
 #    constraints:
 #      end_to_arm:
 #        trajectory: 1.0
