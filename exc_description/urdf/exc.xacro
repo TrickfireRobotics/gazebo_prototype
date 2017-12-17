@@ -157,7 +157,7 @@
     <parent link="base_link" />
     <child link="arm" />
     <origin xyz="${base_length/2} 0 ${base_height/2}" rpy="0 0 ${pi/2}" />
-    <limit effort="50.0" velocity="50.0" lower="0.0" upper="${pi/2}" />
+    <limit effort="50.0" velocity="50.0" lower="${70*pi/180}" upper="${140*pi/180}" />
   </joint>
   <transmission name="arm_tran">
     <type>transmission_interface/SimpleTransmission</type>

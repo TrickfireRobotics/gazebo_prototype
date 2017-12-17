@@ -4,6 +4,9 @@
 #include <hardware_interface/joint_state_interface.h>
 #include <hardware_interface/robot_hw.h>
 
+#define ARM_MIN_ANGLE 70
+#define ARM_MAX_ANGLE 140
+
 class HardwareInterface : public hardware_interface::RobotHW
 {
 public:
@@ -49,7 +52,7 @@ public:
     vel[3] = 0.0;
 
     // Arm joint
-    pos[4] = potVal;
+    pos[4] = (ARM_MIN_ANGLE + (potVal * (ARM_MAX_ANGLE - ARM_MIN_ANGLE))) * M_PI / 180;
   }
 
   void write() {

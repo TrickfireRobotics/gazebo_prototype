@@ -25,6 +25,7 @@ void drive_callback(const geometry_msgs::Twist::ConstPtr& msg) {
 
     left.data = max(-1.0, min(left.data, 1.0));
     right.data = max(-1.0, min(right.data, 1.0));
+    right.data *= -1.0f;
 
     fl->publish(left);
     rl->publish(left);
