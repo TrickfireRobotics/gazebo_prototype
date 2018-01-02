@@ -10,6 +10,7 @@
 
   <xacro:include filename="$(find exc_description)/urdf/exc.gazebo" />
 
+  <!--DRIVEBASE-->
   <!-- A macro for creating a wheel with a link, joint, and transmission -->
   <xacro:macro name="wheel" params="name fb lr">
     <link name="${name}">
@@ -106,6 +107,12 @@
       <origin xyz="0 ${-base_width/2} ${-base_height/2}" rpy="${pi/2} 0 0" />
     </joint>
 
+  <xacro:wheel name="wheel_fr" fb="1" lr="-1" />
+  <xacro:wheel name="wheel_fl" fb="1" lr="1" />
+  <xacro:wheel name="wheel_rr" fb="-1" lr="-1" />
+  <xacro:wheel name="wheel_rl" fb="-1" lr="1" />
+
+  <!--GOD-->
   <link name="god" /> <!-- This is necessary because Gazebo complains about the base link having inertia, for some reason -->
   <link name="base_link" >
     <visual>
@@ -123,15 +130,41 @@
       <inertia ixx="100.0" ixy="0.0" ixz="0.0" iyy="100.0" iyz="0.0" izz="100.0"/> <!-- TODO: Update with proper inertial values, possibly calculated from Solidworks? -->
     </inertial>
   </link>
-
-  <xacro:wheel name="wheel_fr" fb="1" lr="-1" />
-  <xacro:wheel name="wheel_fl" fb="1" lr="1" />
-  <xacro:wheel name="wheel_rr" fb="-1" lr="-1" />
-  <xacro:wheel name="wheel_rl" fb="-1" lr="1" />
-
   <joint name="god_to_base" type="fixed">
     <parent link="god" />
     <child link="base_link" />
     <origin xyz="0 0 0" />
   </joint>
+
+  <!--STEREO CAMERA-->
+  <xacro:property name="camera_size" value="0.05" /> <!-- Size of square 'camera' box -->
+  <joint name="camera_joint" type="fixed">
+    <origin xyz="${base_length/2} 0 ${base_height/2}" rpy="0 0 0"/>
+    <parent link="base_link"/>
+    <child link="camera_link"/>
+  </joint>
+
+  <!-- Camera -->
+  <link name="camera_link">
+    <collision>
+      <origin xyz="-${camera_size/2} 0 ${camera_size/2}" rpy="0 0 0"/>
+      <geometry>
+      <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+    </collision>
+    <visual>
+      <origin xyz="-${camera_size/2} 0 ${camera_size/2}" rpy="0 0 0"/>
+      <geometry>
+    <box size="${camera_size} ${camera_size} ${camera_size}"/>
+      </geometry>
+      <material name="red"/>
+    </visual>
+    <inertial>
+      <mass value="1e-5" />
+      <origin xyz="-${camera_size/2} 0 ${camera_size/2}" rpy="0 0 0"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+  </link>
 </robot>
+
+
