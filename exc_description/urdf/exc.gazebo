@@ -55,7 +55,7 @@
   <xacro:macro name="stereo_cam" params="camera_name pose_info">
     <camera name="${camera_name}">
         <pose>${pose_info}</pose>
-        <horizontal_fov>2.967</horizontal_fov>
+        <horizontal_fov>1</horizontal_fov>
         <image>
           <width>754</width>
           <height>480</height>
@@ -63,28 +63,28 @@
         </image>
         <clip>
           <near>0.02</near>
-          <far>300</far>
+          <far>10</far>
         </clip>
         <noise>
           <type>gaussian</type>
           <mean>0.0</mean>
-          <stddev>0.007</stddev>
+          <stddev>0.0007</stddev>
         </noise>
       </camera>
   </xacro:macro>
 
   <gazebo reference="camera_link">
       <sensor type="multicamera" name="stereo_camera">
-      <update_rate>30.0</update_rate>
+      <update_rate>45</update_rate>
       <xacro:stereo_cam camera_name="left" pose_info="0 0 0 0 0 0"/>
       <xacro:stereo_cam camera_name="right" pose_info="0 0.025  0 0 0 0"/>
       <plugin name="stereo_camera_controller" filename="libgazebo_ros_multicamera.so">
         <alwaysOn>true</alwaysOn>
         <updateRate>45</updateRate>
-        <cameraName>duo_36/camera</cameraName>
+        <cameraName>duo3d_driver</cameraName>
         <imageTopicName>image_raw</imageTopicName>
         <cameraInfoTopicName>camera_info</cameraInfoTopicName>
-        <frameName>camera_link</frameName>
+        <frameName>stereo_link</frameName>
         <hackBaseline>0.025</hackBaseline>
         <distortionK1>0.0</distortionK1>
         <distortionK2>0.0</distortionK2>

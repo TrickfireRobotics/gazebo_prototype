@@ -32,4 +32,8 @@
 
   <!-- Publishes the state of the robot to TF for Rviz or other usages -->
   <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" respawn="false" output="screen" />
+
+  <include file="$(find exc_gazebo)/launch/stereo.launch"/>
+
+
 </launch>
