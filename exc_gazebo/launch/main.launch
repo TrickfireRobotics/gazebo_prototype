@@ -1,6 +1,0 @@
-<launch>
-  <!--spawn the model w/gui-->
-  <include file="$(find exc_gazebo)/launch/exc_world.launch" />
-  <!--spawn the controller-->
-  <include file="$(find exc_gazebo)/launch/controller.launch" />
-</launch> 

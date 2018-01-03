@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(exc_description)
+project(tfr_description)
 
 add_compile_options(-std=c++11)
 

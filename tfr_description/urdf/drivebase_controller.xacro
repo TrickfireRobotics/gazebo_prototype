@@ -1,0 +1,31 @@
+<?xml version="1.0"?>
+  <robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="excavator">
+  <gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace></robotNamespace>
+    </plugin>
+  </gazebo>
+  
+  <gazebo>
+    <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+      <updateRate>100.0</updateRate>
+      <robotNamespace></robotNamespace>
+      <leftFrontJoint>wheel_fl_joint</leftFrontJoint>
+      <rightFrontJoint>wheel_fr_joint</rightFrontJoint>
+      <leftRearJoint>wheel_rl_joint</leftRearJoint>
+      <rightRearJoint>wheel_rr_joint</rightRearJoint>
+      <wheelSeparation>1.0668</wheelSeparation>
+      <wheelDiameter>0.3048</wheelDiameter>
+      <robotBaseFrame>god</robotBaseFrame>
+      <torque>20000</torque>
+      <topicName>cmd_vel</topicName>
+      <commandTopic>cmd_vel</commandTopic>
+      <odometryTopic>odom</odometryTopic>
+      <odometryFrame>odom</odometryFrame>
+      <covariance_x>0.000100</covariance_x>
+      <covariance_y>0.000100</covariance_y>
+      <covariance_yaw>0.010000</covariance_yaw>
+      <broadcastTF>true</broadcastTF>
+    </plugin>
+  </gazebo>
+</robot>

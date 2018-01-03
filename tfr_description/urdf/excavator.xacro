@@ -1,0 +1,7 @@
+<?xml version="1.0"?>
+<robot name="excavator" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  <xacro:include filename="drivebase.xacro"/>
+  <xacro:include filename="drivebase_controller.xacro"/>
+  <xacro:include filename="sensors.xacro"/>
+  <xacro:include filename="model.xacro"/>
+</robot>

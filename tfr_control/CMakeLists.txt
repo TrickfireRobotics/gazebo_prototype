@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(exc_control)
+project(tfr_control)
 #set(CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH})
 
 add_compile_options(-std=c++11)
@@ -19,4 +19,4 @@ link_directories(/usr/lib/x86_64-linux-gnu /usr/lib/x86_64-linux-gnu)
 
 add_executable(driver_station src/DriverStation.cpp)
 target_link_libraries(driver_station ${catkin_LIBRARIES} sfml-system sfml-window sfml-graphics)
-#add_dependencies(driver_station exc_control_generate_messages_cpp)
+#add_dependencies(driver_station tfr_control_generate_messages_cpp)

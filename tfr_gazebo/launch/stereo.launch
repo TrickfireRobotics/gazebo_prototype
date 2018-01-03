@@ -5,7 +5,7 @@
 
     <include file="$(find stereo_image_proc)/launch/stereo_image_proc.launch" >
       <arg name="manager" value="/duo3d_driver/stereo_proc_manager"/>
-      <rosparam command="load" file="$(find exc_gazebo)/params/disparity_params.yaml"/>
+      <rosparam command="load" file="$(find tfr_gazebo)/params/disparity_params.yaml"/>
     </include>
   </group>
 </launch>
