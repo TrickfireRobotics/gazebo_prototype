@@ -1,6 +1,6 @@
 <launch>
   <!-- Load all of the motor controllers -->
-  <rosparam file="$(find tfr_control)/config/exc_control.yaml" command="load"/>
+  <rosparam file="$(find tfr_control)/config/gazebo_control_params.yaml" command="load"/>
 
   <!-- Gazebo simulation properties -->
   <arg name="paused" default="false"/>
@@ -13,7 +13,7 @@
   <!-- Include the default Gazebo empty world launch file -->
   <include file="$(find gazebo_ros)/launch/empty_world.launch">
     <!-- If we want to use a different world you can change it here -->
-    <arg name="world_name" value="$(find tfr_gazebo)/worlds/exc.world"/>
+    <arg name="world_name" value="$(find tfr_gazebo)/worlds/tfr.world"/>
     <arg name="debug" value="$(arg debug)" />
     <arg name="gui" value="$(arg gui)" />
     <arg name="paused" value="$(arg paused)"/>
