@@ -42,4 +42,32 @@
   			</plugin>
     </sensor>
   </gazebo>
+
+
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <robotNamespace>/</robotNamespace>
+      <alwaysOn>true</alwaysOn>
+      <bodyName>imu_link</bodyName>
+      <topicName>/sensors/mti/imu/data</topicName>
+      <serviceName>/sensors/mti/imu/data_srv</serviceName>
+      <frameName>imu_link</frameName>
+      <gaussianNoise>0.02</gaussianNoise>
+      <updateRate>60.0</updateRate>
+    </plugin>
+  </gazebo>
+  
+  <gazebo>
+    <plugin name="imu_plugin" filename="libgazebo_ros_imu.so">
+      <robotNamespace>/</robotNamespace>
+      <alwaysOn>true</alwaysOn>
+      <bodyName>camera_link</bodyName>
+      <topicName>/sensors/duo_3d/imu/data_raw</topicName>
+      <serviceName>/sensors/duo_3d/imu/data_raw_srv</serviceName>
+      <frameName>camera_link</frameName>
+      <gaussianNoise>0.05</gaussianNoise>
+      <updateRate>60.0</updateRate>
+    </plugin>
+  </gazebo>
+
 </robot>

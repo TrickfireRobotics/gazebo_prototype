@@ -6,8 +6,8 @@
   <xacro:property name="base_height" value="${2*itom}"/> <!-- BS'd this number, total random guess -->
   <xacro:property name="wheel_radius" value="${6*itom}"/>
   <xacro:property name="wheel_width" value="${6*itom}"/>
-  
-  
+
+
   <!--DRIVEBASE-->
   <!-- A macro for creating a wheel with a link, joint, and transmission -->
   <xacro:macro name="wheel" params="name fb lr">
@@ -51,7 +51,7 @@
       </actuator>
     </transmission>
   </xacro:macro>
-  
+
   <link name="tread_left" >
     <visual>
       <geometry>
@@ -72,7 +72,7 @@
       <origin xyz="0 0 ${-wheel_width/2}" />
     </visual>
   </link>
-  
+
   <link name="tread_right" >
     <visual>
       <geometry>
@@ -93,23 +93,23 @@
       <origin xyz="0 0 ${wheel_width/2}" />
     </visual>
   </link>
-  
+
   <joint name="left_tread_to_base" type="fixed">
     <parent link="base_link" />
     <child link="tread_left" />
     <origin xyz="0 ${base_width/2} ${-base_height/2}" rpy="${pi/2} 0 0" />
   </joint>
-    <joint name="right_tread_to_base" type="fixed">
-      <parent link="base_link" />
-      <child link="tread_right" />
-      <origin xyz="0 ${-base_width/2} ${-base_height/2}" rpy="${pi/2} 0 0" />
-    </joint>
-  
+  <joint name="right_tread_to_base" type="fixed">
+    <parent link="base_link" />
+    <child link="tread_right" />
+    <origin xyz="0 ${-base_width/2} ${-base_height/2}" rpy="${pi/2} 0 0" />
+  </joint>
+
   <xacro:wheel name="wheel_fr" fb="1" lr="-1" />
   <xacro:wheel name="wheel_fl" fb="1" lr="1" />
   <xacro:wheel name="wheel_rr" fb="-1" lr="-1" />
   <xacro:wheel name="wheel_rl" fb="-1" lr="1" />
-  
+
   <!--GOD-->
   <link name="god" /> <!-- This is necessary because Gazebo complains about the base link having inertia, for some reason -->
   <link name="base_link" >
@@ -133,7 +133,7 @@
     <child link="base_link" />
     <origin xyz="0 0 0" />
   </joint>
-  
+
   <!--STEREO CAMERA-->
   <xacro:property name="camera_size" value="0.05" /> <!-- Size of square 'camera' box -->
   <joint name="camera_joint" type="fixed">
@@ -145,13 +145,13 @@
     <collision>
       <origin xyz="-${camera_size/2} 0 ${camera_size/2}" rpy="0 0 0"/>
       <geometry>
-      <box size="${camera_size} ${camera_size} ${camera_size}"/>
+        <box size="${camera_size} ${camera_size} ${camera_size}"/>
       </geometry>
     </collision>
     <visual>
       <origin xyz="-${camera_size/2} 0 ${camera_size/2}" rpy="0 0 0"/>
       <geometry>
-    <box size="${camera_size} ${camera_size} ${camera_size}"/>
+        <box size="${camera_size} ${camera_size} ${camera_size}"/>
       </geometry>
       <material name="red"/>
     </visual>
@@ -161,4 +161,33 @@
       <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
     </inertial>
   </link>
+
+  <!--IMU-->
+  <xacro:property name="imu_size" value="0.05" /> <!-- Size of square 'camera' box -->
+  <joint name="imu_joint" type="fixed">
+    <axis xyz="0 0 0"/>
+    <origin xyz="0 0 ${base_height/2}"/>
+    <parent link="base_link"/>
+    <child link="imu_link"/>
+  </joint>
+  <link name="imu_link">
+    <inertial>
+      <mass value="1e-5" />
+      <origin rpy="0 0 0" xyz="0 0 ${base_height/2}"/>
+      <inertia ixx="1e-6" ixy="0" ixz="0" iyy="1e-6" iyz="0" izz="1e-6" />
+    </inertial>
+    <visual>
+      <origin rpy="0 0 0" xyz="0 0 ${base_height/2}"/>
+      <geometry>
+        <box size="${imu_size} ${imu_size} ${imu_size}"/>
+      </geometry>
+    </visual>
+    <collision>
+      <origin rpy="0 0 0" xyz="0 0 ${base_height/2}"/>
+      <geometry>
+        <box size="${imu_size} ${imu_size} ${imu_size}"/>
+      </geometry>
+    </collision>
+  </link>
+
 </robot>
